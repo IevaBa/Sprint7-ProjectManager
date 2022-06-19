@@ -19,6 +19,17 @@
 </head>
 <?php $page = 'projects'; require_once './header.php';
 require_once "conn.php";
+
+// CREATING NEW PROJECT LOGIC
+if(isset($_POST['create_pro'])){
+$stmt = $conn->prepare("INSERT INTO Projects (project) VALUES (?)");
+$stmt->bind_param("s", $project);
+$project = $_POST['project'];
+$stmt->execute();
+$stmt->close();
+header('Location: ' . $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
+die;
+    }
 ?>
 
 <body>
@@ -28,7 +39,7 @@ require_once "conn.php";
                 <div class="col-md-12">
                     <?php
                     // DISPLAYING CONTENT
-                    $sql = "SELECT Projects.id, project, group_concat(concat(firstname, ' ', lastname)SEPARATOR ', ') 
+                    $sql = "SELECT Projects.id, project, group_concat(concat(firstname, ' ', lastname)SEPARATOR ', ') AS assigned_people 
                     FROM Projects
                     LEFT JOIN Employees ON Projects.id = Employees.project_id
                     GROUP BY Projects.id;". (isset($_POST['id']) ? " WHERE id = ?" . $_POST['id'] : "");
@@ -47,7 +58,7 @@ require_once "conn.php";
                                     echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['project'] . "</td>";
-                                        echo "<td>" . $row["group_concat(concat(firstname, ' ', lastname)SEPARATOR ', ')"]. "</td>";
+                                        echo "<td>" . $row["assigned_people"]. "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            
@@ -60,6 +71,14 @@ require_once "conn.php";
                     }
                     mysqli_close($conn);
                     ?>
+                    <div class="mt-4 mb-3 clearfix">
+                        <form class="mb-3" action="" method="POST">
+                            <input class="form-control w-25" type=" text" id="project" name="project" value=""
+                                placeholder="Project name"><br>
+                            <button class="btn btn-success pull-right" type="submit" name="create_pro"><i
+                                    class="fa fa-plus me-1"></i>Add New Project</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

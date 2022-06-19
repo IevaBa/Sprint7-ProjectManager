@@ -23,7 +23,7 @@ $page = 'home'; require_once './header.php'
 ?>
 
 <body>
-    <div class="wrapper">
+    <div class="wrapper mt-4">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -62,6 +62,10 @@ $page = 'home'; require_once './header.php'
                     }
                     mysqli_close($conn);
                     ?>
+                    <div class="mt-5 mb-3 clearfix">
+                        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New
+                            Employee</a>
+                    </div>
                 </div>
             </div>
         </div>
