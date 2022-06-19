@@ -124,7 +124,7 @@ $res = mysqli_query($conn, $sql)
                         </select>
                         <input type="hidden" name="id" value="<?php echo $id; mysqli_close($conn)?>" />
                         <input type="submit" class="btn btn-primary mt-3" value="Submit">
-                        <a href="projects.php" class="btn btn-secondary ml-2 mt-3">Cancel</a>
+                        <a href="index.php" class="btn btn-secondary ml-2 mt-3">Cancel</a>
                     </form>
                 </div>
             </div>
