@@ -20,6 +20,17 @@
 <?php $page = 'projects'; require_once './header.php';
 require_once "conn.php";
 
+// DELETE LOGIC
+if(isset($_GET['action']) and $_GET['action'] == 'delete'){
+ $sql = 'DELETE FROM Projects WHERE id = ?';
+ $stmt = $conn->prepare($sql);
+ $stmt->bind_param('i', $_GET['id']);
+ $res = $stmt->execute();
+ $stmt->close();
+ mysqli_close($conn);
+ header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+die();
+}
 // CREATING NEW PROJECT LOGIC
 if(isset($_POST['create_pro'])){
 $stmt = $conn->prepare("INSERT INTO Projects (project) VALUES (?)");
@@ -51,6 +62,7 @@ die;
                                         echo "<th>#</th>";
                                         echo "<th>Project</th>";
                                         echo "<th>Assigned employee</th>";
+                                        echo "<th>Action</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -59,6 +71,9 @@ die;
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['project'] . "</td>";
                                         echo "<td>" . $row["assigned_people"]. "</td>";
+                                        echo "<td>";
+                                            echo '<a href="?action=delete&id='. $row['id'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash mx-2"></span></a>';
+                                        echo "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            

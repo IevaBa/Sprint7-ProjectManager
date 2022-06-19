@@ -19,7 +19,19 @@
 
 <?php 
 require_once "conn.php";
-$page = 'home'; require_once './header.php'
+$page = 'home'; require_once './header.php';
+
+// DELETE LOGIC
+if(isset($_GET['action']) and $_GET['action'] == 'delete'){
+$sql = 'DELETE FROM Employees WHERE id = ?';
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('i', $_GET['id']);
+$res = $stmt->execute();
+$stmt->close();
+mysqli_close($conn);
+header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    die();
+}
 ?>
 
 <body>
@@ -41,6 +53,7 @@ $page = 'home'; require_once './header.php'
                                         echo "<th>Name</th>";
                                         echo "<th>Surname</th>";
                                         echo "<th>Project</th>";
+                                        echo "<th>Action</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -50,11 +63,13 @@ $page = 'home'; require_once './header.php'
                                         echo "<td>" . $row['firstname'] . "</td>";
                                         echo "<td>" . $row['lastname'] . "</td>";
                                         echo "<td>" . $row['project'] . "</td>";
+                                        echo "<td>";
+                                            echo '<a href="?action=delete&id='. $row['id'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash mx-2"></span></a>';
+                                        echo "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                  
                             echo "</table>";
-                            // Free result set
                             mysqli_free_result($result);
                         } else{
                             echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
