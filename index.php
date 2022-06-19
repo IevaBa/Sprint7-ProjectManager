@@ -14,6 +14,14 @@
         max-width: 80vw;
         margin: 0 auto;
     }
+
+    table tr td:first-child {
+        width: 3rem;
+    }
+
+    table tr td:last-child {
+        width: 7rem;
+    }
     </style>
 </head>
 
@@ -64,6 +72,7 @@ header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
                                         echo "<td>" . $row['lastname'] . "</td>";
                                         echo "<td>" . $row['project'] . "</td>";
                                         echo "<td>";
+                                            echo '<a href="update_employee.php?id='. $row['id'] .'" class="mx-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                             echo '<a href="?action=delete&id='. $row['id'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash mx-2"></span></a>';
                                         echo "</td>";
                                     echo "</tr>";
