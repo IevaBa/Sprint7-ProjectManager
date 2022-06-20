@@ -28,7 +28,8 @@ CREATE TABLE `Employees` (
   `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `project_id` (`project_id`)
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `project_id` FOREIGN KEY (`project_id`) REFERENCES `Projects` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -75,4 +76,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-19 15:16:09
+-- Dump completed on 2022-06-20 13:45:38
