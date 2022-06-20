@@ -22,24 +22,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $lname_err = "Please enter a valid surname.";
     } else{
         $lname = $input_lname;
-    }
+    };
     // Project
     $input_project = trim($_POST["project"]);
-    $project = $input_project;
-    
+    $project = $input_project === '' ? NULL : $input_project;
+
     // Check input errors before inserting in database
     if(empty($fname_err) && empty($lname_err)){
         $sql = "INSERT INTO Employees (firstname, lastname, project_id) VALUES (?, ?, ?)";
         
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssd", $param_fname, $param_lname, $param_project);
+            $test = mysqli_stmt_bind_param($stmt, "ssd", $param_fname, $param_lname, $param_project);
 
             // Set parameters
             $param_fname = $fname;
             $param_lname = $lname;
             $param_project = $project;
-            
+
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Records created successfully. Redirect to landing page
@@ -91,7 +91,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <span class="invalid-feedback"><?php echo $lname_err;?></span>
                             <select class="form-select form-select-lg my-3" aria-label=".form-select-lg example"
                                 name="project">
-                                <option selected>Choose project</option>
+                                <option value="" selected>Choose project</option>
                                 <?php while ( $rows = mysqli_fetch_array($res)) { ?>
                                 <option value="<?php echo $rows['id'];  ?>"><?php echo $rows['project'];  ?>
                                 </option>

@@ -77,7 +77,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                         <div class="form-group">
                             <label class="my-2">Project</label>
-                            <input type="text" name="project"
+                            <input required type="text" name="project"
                                 class="form-control <?php echo (!empty($project_err)) ? 'is-invalid' : ''; ?>"
                                 value="<?php echo $row["project"]; ?>">
                             <span class="invalid-feedback"><?php echo $project_err;?></span>

@@ -26,7 +26,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     }
     // Project
     $input_project = trim($_POST["project"]);
-    $project = $input_project;
+    $project = $input_project === '' ? NULL : $input_project;
     
     if(empty($fname_err) && empty($lname_err)){
         $sql = "UPDATE employees SET firstname=?, lastname=?, project_id=? WHERE id=?";
@@ -116,7 +116,7 @@ $res = mysqli_query($conn, $sql)
                         <span class="invalid-feedback"><?php echo $lname_err;?></span>
                         <select class="form-select form-select-lg my-2" aria-label=".form-select-lg example"
                             name="project">
-                            <option selected>Choose project</option>
+                            <option value="" selected>Choose project</option>
                             <?php while ( $rows = mysqli_fetch_array($res)) { ?>
                             <option value="<?php echo $rows['id'];  ?>"><?php echo $rows['project'];  ?>
                             </option>

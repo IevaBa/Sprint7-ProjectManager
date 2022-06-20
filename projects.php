@@ -97,7 +97,7 @@ die;
                     ?>
                     <div class="mt-4 mb-3 clearfix">
                         <form class="mb-3" action="" method="POST">
-                            <input class="form-control w-25" type=" text" id="project" name="project" value=""
+                            <input class="form-control w-25" type=" text" id="project" name="project" required value=""
                                 placeholder="Project name"><br>
                             <button class="btn btn-success pull-right" type="submit" name="create_pro"><i
                                     class="fa fa-plus me-1"></i>Add New Project</button>
